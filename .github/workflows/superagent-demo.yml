@@ -1,0 +1,20 @@
+# Temporary demo workflow: posts a comment as github-actions[bot] so that
+# super agent sees a request from an account other than its own.
+name: superagent-demo
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask the agent
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh issue comment 1 --body "@xiaomaup 把首页标题改成 Hello Superagent"
